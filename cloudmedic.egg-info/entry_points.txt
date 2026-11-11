@@ -1,0 +1,2 @@
+[console_scripts]
+cloudmedic = cloudmedic.cli:main

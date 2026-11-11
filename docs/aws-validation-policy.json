@@ -1,0 +1,52 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PolicySimulatorForIamFidelity",
+      "Effect": "Allow",
+      "Action": ["iam:SimulateCustomPolicy", "iam:GetContextKeysForCustomPolicy"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LiveNetworkValidationEc2",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateVpc", "ec2:DeleteVpc", "ec2:DescribeVpcs", "ec2:DescribeVpcAttribute",
+        "ec2:CreateSubnet", "ec2:DeleteSubnet", "ec2:DescribeSubnets", "ec2:ModifySubnetAttribute",
+        "ec2:CreateInternetGateway", "ec2:AttachInternetGateway", "ec2:DetachInternetGateway", "ec2:DeleteInternetGateway", "ec2:DescribeInternetGateways",
+        "ec2:CreateRouteTable", "ec2:DeleteRouteTable", "ec2:CreateRoute", "ec2:AssociateRouteTable", "ec2:DisassociateRouteTable", "ec2:DescribeRouteTables",
+        "ec2:CreateNetworkAcl", "ec2:DeleteNetworkAcl", "ec2:CreateNetworkAclEntry", "ec2:DeleteNetworkAclEntry", "ec2:ReplaceNetworkAclAssociation", "ec2:DescribeNetworkAcls",
+        "ec2:CreateSecurityGroup", "ec2:DeleteSecurityGroup", "ec2:AuthorizeSecurityGroupIngress", "ec2:RevokeSecurityGroupIngress", "ec2:DescribeSecurityGroups",
+        "ec2:RunInstances", "ec2:TerminateInstances", "ec2:DescribeInstances", "ec2:CreateTags", "ec2:DescribeAvailabilityZones"
+      ],
+      "Resource": "*",
+      "Condition": {"StringEquals": {"aws:RequestedRegion": "us-east-1"}}
+    },
+    {
+      "Sid": "OnlyMicroInstances",
+      "Effect": "Deny",
+      "Action": "ec2:RunInstances",
+      "Resource": "arn:aws:ec2:*:*:instance/*",
+      "Condition": {"StringNotEquals": {"ec2:InstanceType": "t3.micro"}}
+    },
+    {
+      "Sid": "LiveNetworkValidationSsm",
+      "Effect": "Allow",
+      "Action": ["ssm:SendCommand", "ssm:GetCommandInvocation", "ssm:DescribeInstanceInformation", "ssm:GetParameter"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "InstanceRoleForSsm",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole", "iam:DeleteRole", "iam:AttachRolePolicy", "iam:DetachRolePolicy", "iam:TagRole",
+        "iam:CreateInstanceProfile", "iam:DeleteInstanceProfile", "iam:AddRoleToInstanceProfile", "iam:RemoveRoleFromInstanceProfile",
+        "iam:TagInstanceProfile", "iam:PassRole", "iam:GetRole", "iam:GetInstanceProfile"
+      ],
+      "Resource": [
+        "arn:aws:iam::*:role/cloudmedic-live-ssm",
+        "arn:aws:iam::*:instance-profile/cloudmedic-live-ssm"
+      ]
+    }
+  ]
+}

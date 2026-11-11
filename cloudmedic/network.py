@@ -64,7 +64,7 @@ def endpoint(snap: dict, ref: str) -> Endpoint | None:
         return Endpoint(
             kind="vpc" if sub else "managed", id=ref, ip=c.get("private_ip") or "0.0.0.0",
             public_ip=c.get("public_ip"), subnet=sub, vpc=vpc, sgs=list(c.get("security_groups", [])),
-            listening=c.get("listening", []), ephemeral=tuple(c.get("ephemeral", DEFAULT_EPHEMERAL)),
+            listening=c.get("listening", []) if "listening" in c else [], ephemeral=tuple(c.get("ephemeral", DEFAULT_EPHEMERAL)),
             compute_kind=c.get("kind"),
         )
     if ref in snap.get("external_hosts", {}):
@@ -186,6 +186,8 @@ def _nacl_return_check(snap, cid, subnet_id, direction, proto, eph, peer_ip):
 
 
 def _listen_check(D: Endpoint, proto, port):
+    if D.listening is None:  # imported from a live account: we cannot see host processes
+        return Check("dst_listening", "host", D.id, SKIP, f"listening state of {D.id} is unknown (imported snapshot)")
     ok = any(l["proto"] == proto and l["port"] == port for l in D.listening)
     if ok:
         return Check("dst_listening", "host", D.id, PASS, f"{D.id} listens on {proto}/{port}")

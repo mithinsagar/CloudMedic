@@ -32,7 +32,7 @@ DENY_CLASS = {
 
 def role_arn(snap: dict, role_id: str) -> str:
     r = snap["iam"]["roles"][role_id]
-    return f"arn:aws:iam::{r.get('account', snap['account_id'])}:role/{r['name']}"
+    return r.get("arn") or f"arn:aws:iam::{r.get('account', snap['account_id'])}:role/{r['name']}"
 
 
 def resource_record(snap: dict, arn: str):
@@ -150,9 +150,14 @@ def evaluate_request(snap: dict, principal: str, action: str, resource: str, con
         checks.append(Check("endpoint_allow", "iam", target, PASS if ok else FAIL,
                             f"VPC endpoint policy {target} {'allows' if ok else 'does not allow'} {action} on {resource}",
                             None if ok else "endpoint_policy_block", {**base_ctx, "target": target}))
-    # 4. permissions boundary
+    # 4. permissions boundary (for an IAM user, a same-account resource policy naming the user directly is not limited by it)
     if role.get("boundary"):
         ok = bool(allowed_by("boundary"))
+        if not ok and role.get("principal_type") == "user":
+            rk, rr = resource_record(snap, resource)
+            ok = (rr or {}).get("account", snap["account_id"]) == acct and any(
+                st.get("Effect") == "Allow" and principal_match_kind(st, arn, acct) == "direct"
+                and statement_applies(st, action, resource, ctx) for k, t, stmts, _ in sources if k == "resource" for st in stmts)
         checks.append(Check("boundary_allow", "iam", role["boundary"], PASS if ok else FAIL,
                             f"permissions boundary {role['boundary']} {'allows' if ok else 'does not allow'} {action}",
                             None if ok else "iam_boundary_block", {**base_ctx, "target": role["boundary"]}))

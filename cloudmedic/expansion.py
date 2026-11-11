@@ -47,7 +47,7 @@ def network_universe(snap: dict) -> list[tuple]:
     eps = list(snap.get("compute", {})) + list(snap.get("external_hosts", {}))
     ports = set(COMMON_PORTS)
     for c in list(snap.get("compute", {}).values()) + list(snap.get("external_hosts", {}).values()):
-        ports |= {l["port"] for l in c.get("listening", []) if l.get("proto", "tcp") == "tcp"}
+        ports |= {l["port"] for l in (c.get("listening") or []) if l.get("proto", "tcp") == "tcp"}
     ext = set(snap.get("external_hosts", {}))
     return [(s, d, "tcp", p) for s in eps for d in eps if s != d and not (s in ext and d in ext) for p in sorted(ports)]
 

@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: cloudmedic
+Version: 0.1.0
+Summary: Verified, least-privilege troubleshooting of AWS network and IAM misconfigurations
+Author: Mithin Sagar
+License: MIT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: z3-solver>=4.12
+Provides-Extra: llm
+Requires-Dist: mlx-lm>=0.20; extra == "llm"
+Provides-Extra: aws
+Requires-Dist: boto3>=1.34; extra == "aws"
+Provides-Extra: report
+Requires-Dist: matplotlib>=3.8; extra == "report"
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"

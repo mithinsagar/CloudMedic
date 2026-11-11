@@ -5,3 +5,6 @@ download.log
 results/llm_cache/
 .pytest_cache/
 .DS_Store
+paper/*.aux
+paper/*.log
+paper/*.xdv
