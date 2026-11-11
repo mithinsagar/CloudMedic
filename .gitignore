@@ -8,3 +8,4 @@ results/llm_cache/
 paper/*.aux
 paper/*.log
 paper/*.xdv
+results/experiments.log
