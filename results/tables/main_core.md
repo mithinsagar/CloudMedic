@@ -1,13 +1,13 @@
 | System | n | Intent | RCA@1 | RCA@3 | Fix works | Safe fix | Over-priv. | Invalid edit | Excess (mean) | Sec/ticket |
 |---|---|---|---|---|---|---|---|---|---|---|
-| LLM only (7B) | 0/154 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
-| LLM + checklist (7B) | 0/154 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
-| LLM + verifier loop (7B) | 0/154 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| LLM only (7B) | 154 | 64.3 [56.5, 71.4] | 10.4 [5.8, 15.6] | 32.5 [25.3, 39.6] | 12.3 [7.1, 17.5] | 11.0 [6.5, 16.2] | 1.3 [0.0, 3.2] | 86.4 [80.5, 91.6] | 0.09 | 48.9 |
+| LLM + checklist (7B) | 154 | 39.6 [31.2, 47.4] | 12.3 [7.1, 17.5] | 29.9 [22.7, 37.0] | 10.4 [5.8, 15.6] | 8.4 [3.9, 13.0] | 1.9 [0.0, 4.5] | 84.4 [78.6, 89.6] | 0.08 | 269.0 |
+| LLM + verifier loop (7B) | 154 | 47.4 [39.0, 55.8] | 22.7 [16.2, 29.9] | 42.2 [34.4, 50.0] | 14.9 [9.7, 20.8] | 13.0 [7.8, 18.8] | 1.9 [0.0, 4.5] | 85.7 [79.9, 90.9] | 0.04 | 66.9 |
 | Symbolic + template parser | 154 | 89.6 [84.4, 94.2] | 89.6 [84.4, 94.2] | 89.6 [84.4, 94.2] | 89.6 [84.4, 94.2] | 89.6 [84.4, 94.2] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.00 | 0.1 |
-| CloudMedic, no LP cost (7B) | 0/154 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
-| CloudMedic (7B) | 32/154 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
-| LLM + checklist (3B) | 0/154 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
-| CloudMedic (3B) | 0/154 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| CloudMedic, no LP cost (7B) | 154 | 78.6 [71.4, 84.4] | 83.1 [76.6, 89.0] | 85.1 [79.2, 90.3] | 81.8 [75.3, 87.7] | 70.1 [63.0, 77.3] | 11.7 [7.1, 16.9] | 0.0 [0.0, 0.0] | 1.16 | 0.0 |
+| CloudMedic (7B) | 154 | 78.6 [71.4, 84.4] | 83.1 [76.6, 89.0] | 85.1 [79.2, 90.3] | 79.9 [72.7, 85.7] | 77.3 [70.1, 83.8] | 2.6 [0.6, 5.2] | 0.0 [0.0, 0.0] | 0.10 | 6.9 |
+| LLM + checklist (3B) | 154 | 29.9 [23.4, 37.0] | 3.9 [1.3, 7.1] | 5.8 [2.6, 9.7] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 16.9 [11.0, 22.7] | 0.01 | 15.3 |
+| CloudMedic (3B) | 154 | 76.6 [69.5, 83.1] | 84.4 [78.6, 89.6] | 85.7 [79.9, 90.9] | 79.2 [72.7, 85.1] | 75.3 [68.2, 81.8] | 3.9 [1.3, 7.1] | 0.0 [0.0, 0.0] | 0.09 | 4.0 |
 | Oracle intent (upper bound) | 154 | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.00 | 0.1 |
 
 Percentages with 95% bootstrap CI. Intent = exact intent extraction; RCA@k = a gold (class, resource) among the top k; Safe fix = fix works, zero excess privilege, zero regression; Over-priv. = fix works but grants access beyond the healthy and pre-fix configuration; Invalid edit = at least one edit references a missing resource or is malformed.

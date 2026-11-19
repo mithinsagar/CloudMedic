@@ -5,7 +5,7 @@
 | LLM + verifier loop (7B) | 0/310 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
 | Symbolic + template parser | 310 | 90.6 [87.1, 93.9] | 90.6 [87.1, 93.9] | 90.6 [87.1, 93.9] | 90.6 [87.1, 93.9] | 90.6 [87.1, 93.9] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.00 | 0.1 |
 | CloudMedic, no LP cost (7B) | 0/310 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
-| CloudMedic (7B) | 0/310 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
+| CloudMedic (7B) | 310 | 80.3 [75.5, 84.8] | 83.5 [79.0, 87.7] | 85.5 [81.3, 89.4] | 81.9 [77.4, 86.1] | 79.4 [74.5, 83.9] | 2.6 [1.0, 4.5] | 0.0 [0.0, 0.0] | 0.08 | 29.8 |
 | LLM + checklist (3B) | 0/310 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
 | CloudMedic (3B) | 0/310 | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING | PENDING |
 | Oracle intent (upper bound) | 310 | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 100.0 [100.0, 100.0] | 0.0 [0.0, 0.0] | 0.0 [0.0, 0.0] | 0.00 | 0.1 |
