@@ -105,6 +105,8 @@ def validate_statement(st) -> dict:
     _need("Action" in st or "NotAction" in st, "statement needs Action or NotAction")
     for a in as_list(st.get("Action")) + as_list(st.get("NotAction")):
         _need(isinstance(a, str) and (a == "*" or ":" in a), f"invalid action {a!r}")
+    if "Principal" in st:  # AWS: "*" or a map such as {"AWS": [...]}; a bare ARN string is malformed
+        _need(st["Principal"] == "*" or isinstance(st["Principal"], dict), "Principal must be \"*\" or an object")
     for op in (st.get("Condition") or {}):
         base = op[:-8] if op.endswith("IfExists") else op
         _need(base in SUPPORTED_OPS, f"unsupported condition operator {op}")
